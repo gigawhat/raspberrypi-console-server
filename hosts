@@ -1,0 +1,2 @@
+[console_server]
+pi.example.com ansible_user=pi

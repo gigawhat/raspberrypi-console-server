@@ -1,0 +1,49 @@
+---
+
+- name: configure raspberry pi as console server
+  become: true
+  hosts: console_server
+  gather_facts: false
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+
+    - name: do apt-cache update
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: install ser2net
+      apt:
+        name: ser2net
+        state: present
+
+    - name: config ser2net
+      template:
+        src: templates/ser2net.conf.j2
+        dest: /etc/ser2net.conf
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart ser2net
+
+    - name: create log dir
+      file:
+        path: /var/log/ser2net
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: start ser2net
+      service:
+        name: ser2net
+        state: started
+        enabled: true
+
+  handlers:
+    - name: restart ser2net
+      service:
+        name: ser2net
+        state: restarted

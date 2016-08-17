@@ -1,0 +1,5 @@
+BANNER:banner:CONSOLE Server TCP port \p device \d serial parms \s\r\n
+
+{% for port in ports %}
+{{ port.tcpport }}:{{ port.state | default('telnet') }}:{{ port.timeout| default(300) }}:{{ port.device }}:{{ port.baud }} {{ port.params |default('8DATABITS NONE 1STOPBIT') }} banner timestamp
+{% endfor %}

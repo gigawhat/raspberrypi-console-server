@@ -1,0 +1,15 @@
+---
+
+ports:
+  - device: /dev/ttyUSB0
+    baud: 9600
+    tcpport: 4001
+  - device: /dev/ttyUSB1
+    baud: 9600
+    tcpport: 4002
+  - device: /dev/ttyUSB2
+    baud: 9600
+    tcpport: 4003
+  - device: /dev/ttyUSB3
+    baud: 9600
+    tcpport: 4004
